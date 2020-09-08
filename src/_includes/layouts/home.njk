@@ -1,20 +1,23 @@
----
-layout: "base.njk"
----
+{% extends "base.njk" %}
+
+{% block pageHeader %}{% endblock pageHeader %}
+
+{% block content %}
+
 
 <div class="hero-slider">
-    <div class="single-slide" style="background-image: url(assets/img/slide1.jpg)">
+
+{% for banner in banners %}
+<div class="single-slide" style="background-image: url({{ banner.background }})">
         <div class="inner">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="slide-content">
-                            <h2>We Are Digital Product Design Agency.</h2>
-                            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis
-                                egestas.</p>
+                            <h2>{{ banner.headline }}</h2>
+                            <p>{{ banner.blurb}}</p>
                             <div class="slide-btn">
-                                <a href="#" class="button">Learn More</a>
-                                <a href="#" class="button-2">Live Preview</a>
+                                <a href="{{ banner.link.url }}" class="button">{{ banner.link.text}}</a>
                             </div>
                         </div>
                     </div>
@@ -22,100 +25,70 @@ layout: "base.njk"
             </div>
         </div>
     </div>
-    <div class="single-slide" style="background-image: url(assets/img/slide2.jpg)">
-        <div class="inner">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-6 text-center">
-                        <div class="slide-content">
-                            <h2>We Are Digital Product Design Agency.</h2>
-                            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis
-                                egestas.</p>
-                            <div class="slide-btn">
-                                <a href="#" class="button">Learn More</a>
-                                <a href="#" class="button-2">Live Preview</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    
+{% endfor %}
+  
+</div>
+
+<div class="about-area sp">
+<div class="container">
+ <div class="row">
+    <div class="col-md-6">
+        <div class="about-content">
+        <h3>{{ about.title}}</h3>
+        <p>{{ about.description }}</p>
+        <a class="btn btn-primary" href="{{ about.link.url }}">{{ about.link.text}}</a>
         </div>
     </div>
-    <div class="single-slide" style="background-image: url(assets/img/slide3.jpg)">
-        <div class="inner">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="slide-content">
-                            <h2>We Are Digital Product Design Agency.</h2>
-                            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis
-                                egestas.</p>
-                            <div class="slide-btn">
-                                <a href="#" class="button">Learn More</a>
-                                <a href="#" class="button-2">Live Preview</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 text-center">
-                        <div class="inner embed-responsive embed-responsive-16by9" data-margin="25px 0 0">
-                            <iframe width="560" height="315"
-                                src="https://www.youtube.com/embed/GYtUAYYDPo0?rel=0&amp;controls=0&amp;showinfo=0"
-                                frameborder="0" allowfullscreen></iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="col-md-6">
+        <div class="about-img">
+            <img src="{{ about.image }}" alt="{{ about.title }}">
         </div>
     </div>
+ </div>
+</div>
 </div>
 <div class="service-area spt">
     <div class="container">
         <div class="section-title" data-margin="0 0 40px">
-            <h2>Our Service</h2>
-            <p>Malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae.</p>
+            <h2>{{ services.title}}</h2>
+            <p>{{ services.description }}</p>
         </div>
-        <div class="row">
+        <div class="row"> 
+        {% for service in collections.services %}
             <div class="col-md-4 single-service-2">
                 <div class="inner">
                     <div class="title">
                         <div class="icon">
-                            <i class="fa fa-film"></i>
+                            <i class="fa fa-{{service.data.faIcon}}"></i>
                         </div>
-                        <h4>Video Making</h4>
+                        <h4>{{ service.data.title}}</h4>
                     </div>
                     <div class="content">
-                        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames.</p>
+                        <p>{{service.data.description}}</p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 single-service-2">
-                <div class="inner">
-                    <div class="title">
-                        <div class="icon">
-                            <i class="fa fa-camera"></i>
-                        </div>
-                        <h4>Photography</h4>
-                    </div>
-                    <div class="content">
-                        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 single-service-2">
-                <div class="inner">
-                    <div class="title">
-                        <div class="icon">
-                            <i class="fa fa-music"></i>
-                        </div>
-                        <h4>Music Composing</h4>
-                    </div>
-                    <div class="content">
-                        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames.</p>
-                    </div>
-                </div>
-            </div>
+        {% endfor %}
+
         </div>
     </div>
+</div>
+
+<div class="brand-area">
+<div class="container">
+    <div class="row">
+    {% for brand in collections.brands %}
+    <div class="col-md3 col-6 single-brand">
+    <div class="inner">
+        <a href="{{ brand.data.url}}">
+            <img src="{{brand.data.image}}" alt="{{brand.data.name}}">
+        </a>
+    </div>
+    </div>
+    {% endfor %}
+    </div>
+</div>
 </div>
 <div class="portfolio-area sp">
     <div class="container">
@@ -382,3 +355,5 @@ layout: "base.njk"
 
     </div>
 </div>
+
+{% endblock content %}
